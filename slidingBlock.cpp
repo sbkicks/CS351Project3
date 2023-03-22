@@ -37,9 +37,28 @@ int main(int argc, char** argv){
     cout << line << endl;    // this is to verify data input and should not be part of final code
   }
 
-  //  print out initial puzzle configuration
 
-  //  find solution if one exists
+  // TODO list:
+    // 1.
+    // Figure out the format of the data files for intial configurations, learn
+    // how to parse the data and get and idea on how to build the neccessary grid and piece objects
+    ///////////
+    // 2. 
+    // Implement the Piece class based on the input from the intial data file
+    ///////////
+    // 3.
+    // Implement the Grid class based on all the piece objects
+    ///////////
+    // 4.
+    // Print out a text representation of the puzzle as specifed in the project writeup
+    ///////////
+    // 5.
+    // Use the Grid class representation of the puzzle to create an algorithm to find
+    // the shortest solution.
+    ///////////
+    // 6. 
+    // Print out solution to puzzle
+    ///////////
   
   return 0;
 }
