@@ -27,121 +27,129 @@ public:
         int width = piece->getWidth();
         int row = piece->getRow();
         switch (direction) {
-        case 'u': {
-          // check if piece can move in specified direction
-          if (piece->moveableDirection() != 'v' &&
-              piece->moveableDirection() != 'b') {
-            return NULL;
-          }
-          // is there another piece in the movement direction / if piece falls
-          // off grid
-          for (int x = col; x < col + piece->getWidth(); x++) {
-            if (row == 1) {
-              return NULL;
-            } else if (current->getGrid()[row - 2][x] != '.') {
+          case 'u': {
+            // check if piece can move in specified direction
+            if (piece->moveableDirection() != 'v' &&
+                piece->moveableDirection() != 'b') {
               return NULL;
             }
+            // is there another piece in the movement direction / if piece falls
+            // off grid
+            for (int x = col; x < col + piece->getWidth(); x++) {
+              if (row == 1) {
+                return NULL;
+              } else if (current->getGrid()[row - 2][x - 1] != '.') {
+                return NULL;
+              }
+            }
+  
+            // update grid to reflect movement
+  
+            for (int x = col; x < col + width; x++) {
+              grid[row - 2][x - 1] = pieceName;
+              grid[row + (height - 2)][x - 1] = '.';
+            }
+            // update piece to reflect movement
+            for (auto t : gridSpacesOccupied) {
+              get<0>(t)--;
+            }
+            row--;
           }
-
-          // update grid to reflect movement
-
-          for (int x = col; x < col + width; x++) {
-            grid[row - 2][x] = pieceName;
-            grid[row + (height - 2)][x] = '.';
-          }
-          // update piece to reflect movement
-          for (auto t : gridSpacesOccupied) {
-            get<0>(t)--;
-          }
-        }
-        case 'd': {
-          // check if piece can move in specified direction
-          if (piece->moveableDirection() != 'v' &&
-              piece->moveableDirection() != 'b') {
-            return NULL;
-          }
-          // is there another piece in the movement direction / if piece falls
-          // off grid
-          for (int x = col; x < col + piece->getWidth(); x++) {
-            if (row + (height - 1) == current->getGrid().size()) { // xx
-              return NULL;
-            } else if (current->getGrid()[row + (height - 1)][x] != '.') { // xx
+          case 'd': {
+            // check if piece can move in specified direction
+            if (piece->moveableDirection() != 'v' &&
+                piece->moveableDirection() != 'b') {
               return NULL;
             }
+            // is there another piece in the movement direction / if piece falls
+            // off grid
+            for (int x = col; x < col + piece->getWidth(); x++) {
+              if (row + (height - 1) == current->getGrid().size()) { // xx
+                return NULL;
+              } else if (current->getGrid()[row + (height - 1)][x - 1] != '.') { // xx
+                return NULL;
+              }
+            }
+  
+            // update grid to reflect movement
+  
+            for (int x = col; x < col + width; x++) {
+              // updates bottom edge
+              grid[row + (height - 1)][x - 1] = pieceName; // xx
+              // updates top edge
+              grid[row - 2][x - 1] = '.'; // xx
+            }
+            // update piece to reflect movement
+            for (auto t : gridSpacesOccupied) {
+              get<0>(t)++; // xx
+            }
+            row++;
           }
-
-          // update grid to reflect movement
-
-          for (int x = col; x < col + width; x++) {
-            // updates bottom edge
-            grid[row + (height - 1)][x] = pieceName; // xx
-            // updates top edge
-            grid[row - 2][x] = '.'; // xx
-          }
-          // update piece to reflect movement
-          for (auto t : gridSpacesOccupied) {
-            get<0>(t)++; // xx
-          }
-        }
-        case 'l': {
-          // check if piece can move in specified direction
-          if (piece->moveableDirection() != 'h' &&
-              piece->moveableDirection() != 'b') {
-            return NULL;
-          }
-          // is there another piece in the movement direction / if piece falls
-          // off grid
-          for (int x = row; x < row + height; x++) {
-            if (col == 1) { // xx
-              return NULL;
-            } else if (current->getGrid()[x][col - 2] != '.') { // xx
+          case 'l': {
+            // check if piece can move in specified direction
+            if (piece->moveableDirection() != 'h' &&
+                piece->moveableDirection() != 'b') {
               return NULL;
             }
+            // is there another piece in the movement direction / if piece falls
+            // off grid
+            for (int x = row; x < row + height; x++) {
+              if (col == 1) { // xx
+                return NULL;
+              } else if (current->getGrid()[x - 1][col - 2] != '.') { // xx
+                return NULL;
+              }
+            }
+  
+            // update grid to reflect movement
+  
+            for (int x = row; x < row + height; x++) {
+              // updates left edge
+              grid[x - 1][col - 2] = pieceName; // xx
+              // updates right edge
+              grid[x - 1][col + (width - 2)] = '.'; // xx
+            }
+            // update piece to reflect movement
+            for (auto t : gridSpacesOccupied) {
+              get<1>(t)--; // xx
+            }
+            col--;
           }
-
-          // update grid to reflect movement
-
-          for (int x = row; x < row + height; x++) {
-            // updates left edge
-            grid[x][col - 2] = pieceName; // xx
-            // updates right edge
-            grid[x][col + (width - 2)] = '.'; // xx
-          }
-          // update piece to reflect movement
-          for (auto t : gridSpacesOccupied) {
-            get<1>(t)--; // xx
-          }
-        }
-        case 'r': {
-          // check if piece can move in specified direction
-          if (piece->moveableDirection() != 'h' &&
-              piece->moveableDirection() != 'b') {
-            return NULL;
-          }
-          // is there another piece in the movement direction / if piece falls
-          // off grid
-          for (int x = row; x < row + height; x++) {
-            if (col + (width - 1) == current->getGrid()[0].size()) { // xx
-              return NULL;
-            } else if (current->getGrid()[x][col + (width - 1)] != '.') { // xx
+          case 'r': {
+            
+            // check if piece can move in specified direction
+            if (piece->moveableDirection() != 'h' &&
+                piece->moveableDirection() != 'b') {
               return NULL;
             }
+            // is there another piece in the movement direction / if piece falls
+            // off grid
+            for (int x = row; x < row + height; x++) {
+              if (col + (width - 1) == current->getGrid()[0].size()) { // xx
+                return NULL;
+              } else if (current->getGrid()[x - 1][col + (width - 1)] != '.') { // xx
+                cout << "test 1" << endl;
+                return NULL;
+              }
+            }
+  
+            // update grid to reflect movement
+            
+            for (int x = row; x < row + height; x++) {
+              // updates right edge
+              grid[x - 1][col + (width - 1)] = pieceName; // xx
+              // updates left edge
+              grid[x - 1][col - 1] = '.'; // xx
+            }
+            // update piece to reflect movement
+            for (auto t : gridSpacesOccupied) {
+              get<1>(t)++; // xx
+            }
+            col++;
           }
-
-          // update grid to reflect movement
-
-          for (int x = row; x < row + height; x++) {
-            // updates right edge
-            grid[x][col + (width - 1)] = pieceName; // xx
-            // updates left edge
-            grid[x][col - 2] = '.'; // xx
-          }
-          // update piece to reflect movement
-          for (auto t : gridSpacesOccupied) {
-            get<1>(t)++; // xx
-          }
+          
         }
-        }
+        
         Piece *newPiece =
             new Piece(pieceName, row, col, height, width, piece->moveableDirection(), gridSpacesOccupied);
         newPieces[index] = newPiece;
