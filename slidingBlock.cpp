@@ -68,6 +68,8 @@ int main(int argc, char **argv) {
   puzzle->printGrid();
   cout << endl;
 
+  puzzle->solvePuzzle();
+
 
   // TODO list:
   // 1.

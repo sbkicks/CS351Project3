@@ -47,4 +47,25 @@ class Snapshot {
         }
         return false;
     }
+
+
+    void printGrid() {
+      cout << endl << "Snapshot grid" << endl << endl;
+      //cout << grid.size();
+      for (int x = 0; x < grid[0].size() + 2; x++) // Prints the top line border of the grid
+        cout << "";
+      cout << endl;
+  
+      for (int x = 0; x < grid.size(); x++) {
+        cout << "";             // Left most border
+        for (auto c : grid[x]) { // Grid items
+          cout << c;
+        }
+        cout << "" << endl; // Right most border
+      }
+  
+      for (int x = 0; x < grid[0].size() + 2; x++) // Prints the bottom line border of the grid
+        cout << "";
+      cout << endl;
+  }
 };

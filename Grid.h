@@ -161,6 +161,14 @@ class Grid{
       set<string> visitedStates;
       vector<tuple<char, char>> initialMoves;
       Snapshot* currSnapshot = new Snapshot(grid, pieces, initialMoves);
+      currSnapshot->printGrid();
+      Movement* newState = new Movement();
+      Snapshot* newSnapshot = newState->move('r', '2', currSnapshot);
+      newSnapshot->printGrid();
+      newSnapshot = newState->move('r', '2', newSnapshot);
+      newSnapshot->printGrid();
+      newSnapshot = newState->move('r', '2', newSnapshot);
+      newSnapshot->printGrid();
       q.push(currSnapshot);
       visitedStates.insert(getStateString(currSnapshot));
 
@@ -174,7 +182,7 @@ class Grid{
         }
 
         vector<Snapshot*> nextStates;
-        Movement* newState = new Movement();
+        
         for (auto p : currSnapshot->getPieces()) {
         }
 
