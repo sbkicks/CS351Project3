@@ -1,16 +1,12 @@
 //  Author Information
 
 //  File Information
-#include <vector>
-#include <iostream>
-#include <sstream>
-#include <tuple>
-#include <string>
+
 #include <queue>
 #include <set>
-#include "Piece.h"
-#include "Snapshot.h"
+
 #include "Movement.h"
+
 using namespace std;
 
 class Grid{
