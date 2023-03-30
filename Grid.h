@@ -4,8 +4,13 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <tuple>
+#include <string>
+#include <queue>
+#include <set>
 #include "Piece.h"
-
+#include "Snapshot.h"
+#include "Movement.h"
 using namespace std;
 
 class Grid{
@@ -49,8 +54,9 @@ class Grid{
 
       for (int x = 0; x < numRows; x++) {
         cout << "*";    // Left most border
-        for (auto c : grid[x])    // Grid items
+        for (auto c : grid[x]) {   // Grid items
           cout << c;
+        }
         cout << "*" << endl;    // Right most border
       }
 
@@ -137,5 +143,49 @@ class Grid{
       Piece* newPiece = new Piece(pieceName, row, col, height, width, movable, gridSpacesOccupied);
       pieces.push_back(newPiece);
     }
-    
+
+    string getStateString(Snapshot* state) {
+      string stateString = "";
+      vector<vector<char>> stateGrid = state->getGrid();
+      for (auto r : stateGrid) {
+        for (auto c : r) {
+          if (c == '.') {
+            stateString += " ";
+          } else {
+            stateString += c;
+          }
+        }
+      }
+
+      return stateString;
+    }
+
+    void solvePuzzle() {
+      queue<Snapshot*> q;
+      set<string> visitedStates;
+      vector<tuple<char, char>> initialMoves;
+      Snapshot* currSnapshot = new Snapshot(grid, pieces, initialMoves);
+      q.push(currSnapshot);
+      visitedStates.insert(getStateString(currSnapshot));
+
+      while (!q.empty()) {
+        currSnapshot = q.front();
+        q.pop();
+
+        if (currSnapshot->isSolved()) {
+          //print moves
+          return;
+        }
+
+        vector<Snapshot*> nextStates;
+        Movement* newState = new Movement();
+        for (auto p : currSnapshot->getPieces()) {
+        }
+
+      }
+
+      cout << "This puzzle has no solution" << endl;
+      return;
+
+    }
 };

@@ -28,4 +28,33 @@ class Piece{
       this->directionMovable = directionMovable;
       this->gridSpacesOccupied = gridSpacesOccupied;
     }
+
+    char moveableDirection() {
+      return directionMovable;
+    }
+
+    int getCol() {
+      return col;
+    }
+
+    int getWidth() {
+      return width;
+    }
+
+    int getHeight() {
+      return height;
+    }
+
+    int getRow() {
+      return row;
+    }
+
+    char getName() {
+      return pieceName;
+    }
+
+    vector<tuple<int, int>> getOccupiedSpaces() {
+        return gridSpacesOccupied;
+    }
+
 };
