@@ -66,8 +66,8 @@ int main(int argc, char **argv) {
 
   cout << endl;
   puzzle->printGrid();
-  cout << endl;
-
+  cout << endl << endl;
+  
   puzzle->solvePuzzle();
 
 
